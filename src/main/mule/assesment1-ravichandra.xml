@@ -9,7 +9,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<http:listener-connection host="0.0.0.0" port="8081" />
 	</http:listener-config>
 	<flow name="assesment1-ravichandraFlow" doc:id="9c303ada-d6cf-47b8-9134-3d6c626641f2" >
-		<http:listener doc:name="Listener" doc:id="9e702572-938c-48b0-b074-688b6410cbb0" config-ref="HTTP_Listener_config" path="/assesment"/>
+		<http:listener doc:name="/assesment" doc:id="9e702572-938c-48b0-b074-688b6410cbb0" config-ref="HTTP_Listener_config" path="/assesment"/>
 		<set-variable value="#[uuid()]" doc:name="correlationId" doc:id="0845ce21-9ad8-4ead-99b1-95c785a23de4" variableName="correlationId"/>
 		<logger level="INFO" doc:name="display Before Transform Message" doc:id="0a30386c-a099-42ee-890a-a7428a348c28" message="Before Transformation -- #[vars.correlationId]"/>
 		<ee:transform doc:name="Transform Message" doc:id="61e11909-0fb0-4832-bf20-026a8542bfa7" >
