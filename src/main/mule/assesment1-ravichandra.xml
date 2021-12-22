@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="f41550f7-010a-4fdb-8a94-271c8f46d4ea" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="assesment1-ravichandraFlow" doc:id="9c303ada-d6cf-47b8-9134-3d6c626641f2" >
+		<http:listener doc:name="Listener" doc:id="9e702572-938c-48b0-b074-688b6410cbb0" config-ref="HTTP_Listener_config" path="/assesment"/>
+		<set-variable value="#[uuid()]" doc:name="correlationId" doc:id="0845ce21-9ad8-4ead-99b1-95c785a23de4" variableName="correlationId"/>
+		<logger level="INFO" doc:name="display Before Transform Message" doc:id="0a30386c-a099-42ee-890a-a7428a348c28" message="Before Transformation -- #[vars.correlationId]"/>
+		<ee:transform doc:name="Transform Message" doc:id="61e11909-0fb0-4832-bf20-026a8542bfa7" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+data:payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="display AfterTransform Message" doc:id="3d70d320-147e-48a2-96e1-14c1289442b2" message="After Transformation -- #[vars.correlationId] -- #[payload]"/>
+	</flow>
+</mule>
